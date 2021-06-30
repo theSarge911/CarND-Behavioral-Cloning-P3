@@ -3,12 +3,10 @@ from scipy import ndimage
 import numpy as np
 import matplotlib.pyplot as plt
 
-correction = 0.1
-
 def fetch_path(source_path):
     folders = source_path.split('\\')
     filename = folders[-1]
-    current_path = './' + folders[-3] +'/IMG/' + filename
+    current_path = '../data/' + folders[-3] +'/IMG/' + filename
     return current_path
 
 def importdata(lines, images, measurements):
@@ -41,29 +39,29 @@ def importdata(lines, images, measurements):
         images.append(np.fliplr(image))
         measurements.append(steering_center - correction)
         measurements.append(-1*(steering_center - correction))
-
+        
 list = []
 images = []
 measurements = []
 correction = 0.1
 
 lines = []
-with open('./data/driving_log.csv') as csvfile:
+with open('../data/data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         lines.append(line)
         
-with open('./data1/driving_log.csv') as csvfile:
+with open('../data/data1/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         lines.append(line)
         
-with open('./data2/driving_log.csv') as csvfile:
+with open('../data/data2/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         lines.append(line)
-
-with open('./data4/driving_log.csv') as csvfile:
+        
+with open('../data/data4/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         lines.append(line)
@@ -96,6 +94,6 @@ model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
-model.fit(npimages, npmeasurements, validation_split = 0.2, shuffle=True, epochs=7)
+model.fit(npimages, npmeasurements, validation_split = 0.2, shuffle=True, epochs=5)
 
-model.save('model.h5')
+model.save('model1.h5')
